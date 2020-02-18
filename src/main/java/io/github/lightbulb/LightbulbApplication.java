@@ -1,4 +1,4 @@
-package io.github.lightbulb.lightbulb;
+package io.github.lightbulb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
