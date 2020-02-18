@@ -14,7 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
-public class keyword {
+public class Keyword {
 
   @NonNull
   @Id

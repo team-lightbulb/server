@@ -1,6 +1,9 @@
 package io.github.lightbulb.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.apache.catalina.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -24,14 +28,13 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "created")
     }
 )
-
-public class user {
+public class Thread {
 
   @NonNull
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "user_id", columnDefinition = "CHAR(16) FOR BIT DATA",
+  @Column(name = "thread_id", columnDefinition = "CHAR(16) FOR BIT DATA",
       nullable = false, updatable = false)
   private UUID id;
 
@@ -48,8 +51,8 @@ public class user {
   private Date updated;
 
   @NonNull
-  @Column(length = 4096, nullable = false, unique = true)
-  private String text;
+  @Column(length = 1024, nullable = false, unique = true)
+  private String name;
 
   @NonNull
   public Date getCreated() {
@@ -70,11 +73,11 @@ public class user {
   }
 
   @NonNull
-  public String getText() {
-    return text;
+  public String getName() {
+    return name;
   }
 
-  public void setText(@NonNull String text) {
-    this.text = text;
+  public void setName(@NonNull String name) {
+    this.name = name;
   }
 }
