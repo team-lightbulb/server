@@ -84,9 +84,9 @@ public class Thread implements {
     this.name = name;
   }
 
-//  @Override
-//  public URI getHref() {
-////    return entityLinks.linkForItemResource(Thread.class, id).toUri();
+  @Override
+  public URI getHref() {
+//    return entityLinks.linkForItemResource(Thread.class, id).toUri();
   }
 
 
