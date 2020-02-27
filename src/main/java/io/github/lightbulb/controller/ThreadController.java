@@ -3,6 +3,7 @@ package io.github.lightbulb.controller;
 import io.github.lightbulb.model.entity.Thread;
 import io.github.lightbulb.service.ThreadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/threads")
-
+@ExposesResourceFor(Thread.class)
 public class ThreadController {
 
   private final ThreadRepository threadRepository;

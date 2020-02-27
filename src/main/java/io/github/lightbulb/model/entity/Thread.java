@@ -59,6 +59,10 @@ public class Thread implements FlatThread {
   @Column(length = 1024, nullable = false, unique = true)
   private String name;
 
+  @NonNull
+  @Column(length = 4096, nullable = false)
+  private String text;
+
   @Override
   public UUID getId() {
     return null;
@@ -78,11 +82,6 @@ public class Thread implements FlatThread {
     return updated;
   }
 
-  @Override
-  public String getText() {
-    return null;
-  }
-
   public void setUpdated(@NonNull Date updated) {
     this.updated = updated;
   }
@@ -97,9 +96,20 @@ public class Thread implements FlatThread {
   }
 
   @Override
+  @NonNull
+  public String getText() {
+    return text;
+  }
+
+  public void setText(@NonNull String text) {
+    this.text = text;
+  }
+
+  @Override
   public URI getHref() {
     return entityLinks.linkForItemResource(Thread.class, id).toUri();
   }
+
 
 
 }
