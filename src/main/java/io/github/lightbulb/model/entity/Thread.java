@@ -1,6 +1,7 @@
 package io.github.lightbulb.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.github.lightbulb.view.FlatThread;
 import java.net.URI;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
+import org.springframework.hateoas.server.EntityLinks;
 
 @Entity
 @Table(
@@ -29,7 +31,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "created")
     }
 )
-public class Thread implements {
+public class Thread implements FlatThread {
 
   private static EntityLinks entityLinks;
 
@@ -57,6 +59,11 @@ public class Thread implements {
   @Column(length = 1024, nullable = false, unique = true)
   private String name;
 
+  @Override
+  public UUID getId() {
+    return null;
+  }
+
   @NonNull
   public Date getCreated() {
     return created;
@@ -69,6 +76,11 @@ public class Thread implements {
   @NonNull
   public Date getUpdated() {
     return updated;
+  }
+
+  @Override
+  public String getText() {
+    return null;
   }
 
   public void setUpdated(@NonNull Date updated) {
@@ -86,7 +98,7 @@ public class Thread implements {
 
   @Override
   public URI getHref() {
-//    return entityLinks.linkForItemResource(Thread.class, id).toUri();
+    return entityLinks.linkForItemResource(Thread.class, id).toUri();
   }
 
 
