@@ -1,6 +1,7 @@
 package io.github.lightbulb.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.net.URI;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -28,7 +29,9 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "created")
     }
 )
-public class Thread {
+public class Thread implements {
+
+  private static EntityLinks entityLinks;
 
   @NonNull
   @Id
@@ -80,4 +83,11 @@ public class Thread {
   public void setName(@NonNull String name) {
     this.name = name;
   }
+
+//  @Override
+//  public URI getHref() {
+////    return entityLinks.linkForItemResource(Thread.class, id).toUri();
+  }
+
+
 }
