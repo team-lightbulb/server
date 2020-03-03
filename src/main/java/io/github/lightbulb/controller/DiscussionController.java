@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/threads")
+@RequestMapping("/discussion")
 @ExposesResourceFor(Discussion.class)
 public class DiscussionController {
 

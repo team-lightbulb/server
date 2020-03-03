@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue Mar 03 10:00:33 MST 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0170-a157-8871-000007d8f4e0 
+Tue Mar 03 13:38:59 MST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0170-a21f-85a7-000007ddab70 
 on database directory memory:C:\Users\ro417\Desktop\bootcamp\projects\lightbulb-server\testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@9e89d68 
 Loaded from file:/C:/Users/ro417/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Amazon.com Inc.

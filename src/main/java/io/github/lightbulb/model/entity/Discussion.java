@@ -4,6 +4,7 @@ import io.github.lightbulb.view.FlatDiscussion;
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +16,12 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.stereotype.Component;
 
+@Component
 @Entity
 @Table(
     indexes = {
@@ -103,6 +107,13 @@ public class Discussion implements FlatDiscussion {
     return entityLinks.linkForItemResource(Discussion.class, id).toUri();
   }
 
+  @PostConstruct
+  private void init() {
+    entityLinks.toString();
+  }
 
-
+  @Autowired
+  private void setEntityLinks(EntityLinks entityLinks) {
+    Discussion.entityLinks = entityLinks;
+  }
 }

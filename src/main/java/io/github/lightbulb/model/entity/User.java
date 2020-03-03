@@ -2,6 +2,7 @@ package io.github.lightbulb.model.entity;
 
 import java.util.Date;
 import java.util.UUID;
+import javax.annotation.PostConstruct;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +17,12 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
+@Component
 @Entity
 @Table(
     indexes = {
@@ -26,6 +31,8 @@ import org.springframework.lang.NonNull;
 )
 
 public class User {
+
+  private static EntityLinks entityLinks;
 
   @NonNull
   @Id
@@ -77,4 +84,16 @@ public class User {
   public void setText(@NonNull String text) {
     this.text = text;
   }
+
+  @PostConstruct
+  private void init() {
+    entityLinks.toString();
+  }
+
+  @Autowired
+  private void setEntityLinks(EntityLinks entityLinks) {
+    User.entityLinks = entityLinks;
+  }
+
+
 }
