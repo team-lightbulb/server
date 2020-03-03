@@ -1,8 +1,7 @@
-package io.github.lightbulb.controller;
+package io.github.lightbulb.controller.rest;
 
-import io.github.lightbulb.model.entity.Discussion;
-import io.github.lightbulb.model.entity.Keyword;
-import io.github.lightbulb.service.KeywordRepository;
+import io.github.lightbulb.model.entity.Comment;
+import io.github.lightbulb.service.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
@@ -14,28 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/keyword")
-@ExposesResourceFor(Discussion.class)
-public class KeywordController {
+@RequestMapping("/comments")
+@ExposesResourceFor(Comment.class)
+public class CommentController {
 
-  private final KeywordRepository keywordRepository;
+  private final CommentRepository commentRepository;
 
   @Autowired
-  public KeywordController(KeywordRepository keywordRepository) {
-    this.keywordRepository = keywordRepository;
+  public CommentController(CommentRepository commentRepository) {
+    this.commentRepository = commentRepository;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Keyword> post(@RequestBody Keyword keyword) {
-    keywordRepository.save(keyword);
-    return ResponseEntity.created(keyword.getHref()).body(keyword);
+  public ResponseEntity<Comment> post(@RequestBody Comment comment) {
+    commentRepository.save(comment);
+    return ResponseEntity.created(comment.getHref()).body(comment);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Keyword> get() {
-    return keywordRepository.getAllByOrderByCreatedDesc();
+  public Iterable<Comment> get() {
+    return commentRepository.getAllByOrderByCreatedDesc();
   }
-
-
 }

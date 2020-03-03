@@ -1,7 +1,8 @@
-package io.github.lightbulb.controller;
+package io.github.lightbulb.controller.rest;
 
-import io.github.lightbulb.model.entity.Discussion;
-import io.github.lightbulb.service.DiscussionRepository;
+import io.github.lightbulb.model.entity.Comment;
+import io.github.lightbulb.model.entity.Keyword;
+import io.github.lightbulb.service.KeywordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
@@ -13,26 +14,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/discussion")
-@ExposesResourceFor(Discussion.class)
-public class DiscussionController {
+@RequestMapping("/keyword")
+@ExposesResourceFor(Comment.class)
+public class KeywordController {
 
-  private final DiscussionRepository discussionRepository;
+  private final KeywordRepository keywordRepository;
 
   @Autowired
-  public DiscussionController(DiscussionRepository discussionRepository) {
-    this.discussionRepository = discussionRepository;
+  public KeywordController(KeywordRepository keywordRepository) {
+    this.keywordRepository = keywordRepository;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Discussion> post(@RequestBody Discussion discussion) {
-    discussionRepository.save(discussion);
-    return ResponseEntity.created(discussion.getHref()).body(discussion);
+  public ResponseEntity<Keyword> post(@RequestBody Keyword keyword) {
+    keywordRepository.save(keyword);
+    return ResponseEntity.created(keyword.getHref()).body(keyword);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Discussion> get() {
-    return discussionRepository.getAllByOrderByCreatedDesc();
+  public Iterable<Keyword> get() {
+    return keywordRepository.getAllByOrderByCreatedDesc();
   }
+
+
 }

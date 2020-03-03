@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
         @Index(columnList = "created")
     }
 )
-public class Discussion implements FlatDiscussion {
+public class Comment implements FlatDiscussion {
 
   private static EntityLinks entityLinks;
 
@@ -36,7 +36,7 @@ public class Discussion implements FlatDiscussion {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "discussion_id", columnDefinition = "CHAR(16) FOR BIT DATA",
+  @Column(name = "comment_id", columnDefinition = "CHAR(16) FOR BIT DATA",
       nullable = false, updatable = false)
   private UUID id;
 
@@ -104,7 +104,7 @@ public class Discussion implements FlatDiscussion {
 
   @Override
   public URI getHref() {
-    return entityLinks.linkForItemResource(Discussion.class, id).toUri();
+    return entityLinks.linkForItemResource(Comment.class, id).toUri();
   }
 
   @PostConstruct
@@ -114,6 +114,6 @@ public class Discussion implements FlatDiscussion {
 
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
-    Discussion.entityLinks = entityLinks;
+    Comment.entityLinks = entityLinks;
   }
 }

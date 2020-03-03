@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
   Iterable<User> getAllByTextContainsOrderByTextAsc(String fragment);
 
-  @Query(value = "SELECT * FROM sa.Quote ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT 1 ROW ONLY",
+  @Query(value = "SELECT * FROM sa.USER_CLIENT ORDER BY RANDOM() OFFSET 0 ROWS FETCH NEXT 1 ROW ONLY",
       nativeQuery = true)
   Optional<User> getRandom();
 
