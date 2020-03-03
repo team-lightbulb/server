@@ -31,4 +31,5 @@ build/
 .vscode/
 
 
-# derby.log
+derby.log
+/lightbulb_db
