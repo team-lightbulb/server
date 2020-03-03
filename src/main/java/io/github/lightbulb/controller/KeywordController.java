@@ -1,7 +1,8 @@
 package io.github.lightbulb.controller;
 
-import io.github.lightbulb.model.entity.Thread;
-import io.github.lightbulb.service.ThreadRepository;
+import io.github.lightbulb.model.entity.Discussion;
+import io.github.lightbulb.model.entity.Keyword;
+import io.github.lightbulb.service.KeywordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
@@ -13,27 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/threads")
-@ExposesResourceFor(Thread.class)
-public class ThreadController {
+@RequestMapping("/keyword")
+@ExposesResourceFor(Discussion.class)
+public class KeywordController {
 
-  private final ThreadRepository threadRepository;
+  private final KeywordRepository keywordRepository;
 
   @Autowired
-  public ThreadController(ThreadRepository threadRepository) {
-    this.threadRepository = threadRepository;
+  public KeywordController(KeywordRepository keywordRepository) {
+    this.keywordRepository = keywordRepository;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Thread> post(@RequestBody Thread thread) {
-    threadRepository.save(thread);
-    return ResponseEntity.created(thread.getHref()).body(thread);
+  public ResponseEntity<Keyword> post(@RequestBody Keyword keyword) {
+    keywordRepository.save(keyword);
+    return ResponseEntity.created(keyword.getHref()).body(keyword);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Thread> get() {
-    return threadRepository.getAllByOrderByCreatedDesc();
+  public Iterable<Keyword> get() {
+    return keywordRepository.getAllByOrderByCreatedDesc();
   }
 
 

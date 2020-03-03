@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 import org.springframework.lang.NonNull;
 
-public interface FlatThread {
+public interface FlatKeyword {
 
   @NonNull
   UUID getId();
@@ -21,7 +21,4 @@ public interface FlatThread {
 
   @NonNull
   URI getHref();
-
 }
-
-

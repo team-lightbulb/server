@@ -1,24 +1,17 @@
 package io.github.lightbulb.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.github.lightbulb.view.FlatThread;
+import io.github.lightbulb.view.FlatDiscussion;
 import java.net.URI;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.UUID;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.apache.catalina.User;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -31,7 +24,7 @@ import org.springframework.hateoas.server.EntityLinks;
         @Index(columnList = "created")
     }
 )
-public class Thread implements FlatThread {
+public class Discussion implements FlatDiscussion {
 
   private static EntityLinks entityLinks;
 
@@ -39,7 +32,7 @@ public class Thread implements FlatThread {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "thread_id", columnDefinition = "CHAR(16) FOR BIT DATA",
+  @Column(name = "discussion_id", columnDefinition = "CHAR(16) FOR BIT DATA",
       nullable = false, updatable = false)
   private UUID id;
 
@@ -107,7 +100,7 @@ public class Thread implements FlatThread {
 
   @Override
   public URI getHref() {
-    return entityLinks.linkForItemResource(Thread.class, id).toUri();
+    return entityLinks.linkForItemResource(Discussion.class, id).toUri();
   }
 
 
