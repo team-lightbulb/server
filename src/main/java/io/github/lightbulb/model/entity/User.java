@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(
+    name = "user_client",
     indexes = {
         @Index(columnList = "created")
     }
@@ -94,6 +95,4 @@ public class User {
   private void setEntityLinks(EntityLinks entityLinks) {
     User.entityLinks = entityLinks;
   }
-
-
 }

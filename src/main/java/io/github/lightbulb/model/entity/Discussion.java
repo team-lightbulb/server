@@ -52,8 +52,8 @@ public class Discussion implements FlatDiscussion {
   @Column(nullable = false)
   private Date updated;
 
-  @NonNull
-  @Column(length = 1024, nullable = false, unique = true)
+
+  @Column(length = 1024, unique = true)
   private String name;
 
   @NonNull
@@ -62,7 +62,7 @@ public class Discussion implements FlatDiscussion {
 
   @Override
   public UUID getId() {
-    return null;
+    return id;
   }
 
   @NonNull
