@@ -1,6 +1,6 @@
 package io.github.lightbulb.model.entity;
 
-import io.github.lightbulb.view.FlatDiscussion;
+import io.github.lightbulb.view.FlatComment;
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
         @Index(columnList = "created")
     }
 )
-public class Comment implements FlatDiscussion {
+public class Comment implements FlatComment {
 
   private static EntityLinks entityLinks;
 
@@ -53,7 +53,7 @@ public class Comment implements FlatDiscussion {
   private Date updated;
 
 
-  @Column(length = 1024, unique = true)
+  @Column(length = 1024)
   private String name;
 
   @NonNull

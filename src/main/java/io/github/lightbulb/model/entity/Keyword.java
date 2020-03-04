@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,6 +23,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
+@Table(
+    indexes = {
+        @Index(columnList = "created")
+    }
+)
 public class Keyword implements FlatKeyword {
 
   private static EntityLinks entityLinks;
@@ -46,7 +53,7 @@ public class Keyword implements FlatKeyword {
   private Date updated;
 
   @NonNull
-  @Column(length = 1024, nullable = false, unique = true)
+  @Column(length = 1024)
   private String name;
 
   @Override

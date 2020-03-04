@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 import org.springframework.lang.NonNull;
 
-public interface FlatDiscussion {
+public interface FlatComment {
 
   @NonNull
   UUID getId();

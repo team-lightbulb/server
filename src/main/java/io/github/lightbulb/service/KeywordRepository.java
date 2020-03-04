@@ -13,7 +13,4 @@ public interface KeywordRepository extends JpaRepository<Keyword, UUID> {
   default Keyword findOrFail(UUID id) {
     return findById(id).get();
   }
-
-
-
 }
