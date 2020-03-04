@@ -56,9 +56,10 @@ public class Keyword implements FlatKeyword {
   @Column(length = 1024)
   private String name;
 
+
   @Override
   public UUID getId() {
-    return null;
+    return id;
   }
 
   @NonNull
@@ -75,16 +76,6 @@ public class Keyword implements FlatKeyword {
     return updated;
   }
 
-  @Override
-  public String getText() {
-    return null;
-  }
-
-  @Override
-  public URI getHref() {
-    return null;
-  }
-
   public void setUpdated(@NonNull Date updated) {
     this.updated = updated;
   }
@@ -98,6 +89,12 @@ public class Keyword implements FlatKeyword {
     this.name = name;
   }
 
+
+  @Override
+  public URI getHref() {
+    return entityLinks.linkForItemResource(Comment.class, id).toUri();
+  }
+
   @PostConstruct
   private void init() {
     entityLinks.toString();
@@ -107,5 +104,4 @@ public class Keyword implements FlatKeyword {
   private void setEntityLinks(EntityLinks entityLinks) {
     Keyword.entityLinks = entityLinks;
   }
-
 }

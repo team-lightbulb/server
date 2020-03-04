@@ -17,8 +17,5 @@ public interface FlatKeyword {
   Date getUpdated();
 
   @NonNull
-  String getText();
-
-  @NonNull
   URI getHref();
 }
