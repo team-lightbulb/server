@@ -1,4 +1,4 @@
-package io.github.lightbulb.controller;
+package io.github.lightbulb.controller.rest;
 
 import io.github.lightbulb.model.entity.Comment;
 import io.github.lightbulb.service.CommentRepository;
