@@ -1,4 +1,4 @@
-package io.github.lightbulb.service;
+package io.github.lightbulb.model.repository;
 
 import io.github.lightbulb.model.entity.Comment;
 import java.util.UUID;
