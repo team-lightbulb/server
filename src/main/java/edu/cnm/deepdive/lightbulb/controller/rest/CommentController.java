@@ -103,14 +103,14 @@ public class CommentController {
   /***
    *
    * @param id
-   * @param modifiedQuote
+   * @param modifiedComment
    * @return
    */
   @PutMapping(value = "/{id}/text",
       consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
-  public String put(@PathVariable UUID id, @RequestBody String modifiedQuote) {
+  public String put(@PathVariable UUID id, @RequestBody String modifiedComment) {
     Comment comment = commentRepository.findOrFail(id);
-    comment.setText(modifiedQuote);
+    comment.setText(modifiedComment);
     commentRepository.save(comment);
     return comment.getText();
   }
