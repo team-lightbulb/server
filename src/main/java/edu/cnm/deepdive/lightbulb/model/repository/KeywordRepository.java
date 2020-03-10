@@ -4,8 +4,8 @@ import edu.cnm.deepdive.lightbulb.model.entity.Keyword;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- *
+/***
+ * This interface extends comment repository to jpa repository.
  */
 public interface KeywordRepository extends JpaRepository<Keyword, UUID> {
 

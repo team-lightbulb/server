@@ -4,6 +4,10 @@ import edu.cnm.deepdive.lightbulb.model.entity.User;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
+/***
+ * This interface extends comment repository to jpa repository.
+ */
 public interface UserRepository extends JpaRepository<User, UUID> {
 
   Iterable<User> getAllByOrderByCreatedDesc();

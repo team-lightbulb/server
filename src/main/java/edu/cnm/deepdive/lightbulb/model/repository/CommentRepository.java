@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 /***
- *
+ * This interface extends comment repository to jpa repository.
  */
 public interface CommentRepository extends JpaRepository<Comment, UUID> {
 
