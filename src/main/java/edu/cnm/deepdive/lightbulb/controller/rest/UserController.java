@@ -27,11 +27,20 @@ public class UserController {
 
   private final UserRepository userRepository;
 
+  /***
+   *
+   * @param userRepository
+   */
   @Autowired
   public UserController(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 
+  /***
+   *
+   * @param user
+   * @return
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<User> post(@RequestBody User user) {
@@ -39,11 +48,20 @@ public class UserController {
     return ResponseEntity.created(user.getHref()).body(user);
   }
 
+  /***
+   *
+   * @return
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<User> get() {
     return userRepository.getAllByOrderByCreatedDesc();
   }
 
+  /***
+   *
+   * @param fragment
+   * @return
+   */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<User> search(@RequestParam("q") String fragment) {
     if (fragment.length() < 3) {
@@ -52,11 +70,20 @@ public class UserController {
     return userRepository.getAllByDisplayNameContainsOrderByDisplayName(fragment);
   }
 
+  /***
+   *
+   * @param id
+   * @return
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public User get(@PathVariable UUID id) {
     return userRepository.findOrFail(id);
   }
 
+  /***
+   *
+   * @param id
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {

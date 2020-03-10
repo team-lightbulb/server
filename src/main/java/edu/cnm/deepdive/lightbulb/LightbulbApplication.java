@@ -9,6 +9,11 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 @SpringBootApplication
 public class LightbulbApplication {
 
+
+  /***
+   *
+   * @param args
+   */
   public static void main(String[] args) {
     SpringApplication.run(LightbulbApplication.class, args);
   }

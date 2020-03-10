@@ -29,6 +29,11 @@ public class KeywordController {
   private final KeywordRepository keywordRepository;
   private final CommentRepository commentRepository;
 
+  /***
+   *
+   * @param keywordRepository
+   * @param commentRepository
+   */
   @Autowired
   public KeywordController(KeywordRepository keywordRepository,
       CommentRepository commentRepository) {
@@ -36,6 +41,12 @@ public class KeywordController {
     this.commentRepository = commentRepository;
   }
 
+
+  /***
+   *
+   * @param keyword
+   * @return
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Keyword> post(@RequestBody Keyword keyword) {
@@ -43,11 +54,22 @@ public class KeywordController {
     return ResponseEntity.created(keyword.getHref()).body(keyword);
   }
 
+
+  /***
+   *
+   * @return
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Keyword> get() {
     return keywordRepository.getAllByOrderByCreatedDesc();
   }
 
+
+  /***
+   *
+   * @param fragment
+   * @return
+   */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Keyword> search(@RequestParam("q") String fragment) {
     if (fragment.length() < 3) {
@@ -56,11 +78,22 @@ public class KeywordController {
     return keywordRepository.getAllByNameContainsOrderByNameAsc(fragment);
   }
 
+
+  /***
+   *
+   * @param id
+   * @return
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Keyword get(@PathVariable UUID id) {
     return keywordRepository.findOrFail(id);
   }
 
+
+  /***
+   *
+   * @param id
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {

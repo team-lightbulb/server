@@ -32,6 +32,13 @@ public class CommentController {
   private final KeywordRepository keywordRepository;
   private final UserRepository userRepository;
 
+
+  /***
+   *
+   * @param commentRepository
+   * @param keywordRepository
+   * @param userRepository
+   */
   @Autowired
   public CommentController(CommentRepository commentRepository,
       KeywordRepository keywordRepository,
@@ -41,6 +48,12 @@ public class CommentController {
     this.userRepository = userRepository;
   }
 
+
+  /***
+   *
+   * @param comment
+   * @return
+   */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Comment> post(@RequestBody Comment comment) {
@@ -52,11 +65,21 @@ public class CommentController {
     return ResponseEntity.created(comment.getHref()).body(comment);
   }
 
+
+  /***
+   *
+   * @return
+   */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Comment> get() {
     return commentRepository.getAllByOrderByCreatedDesc();
   }
 
+  /***
+   *
+   * @param fragment
+   * @return
+   */
   @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Comment> search(@RequestParam("q") String fragment) {
     if (fragment.length() < 3) {
@@ -65,11 +88,24 @@ public class CommentController {
     return commentRepository.getAllByTextContainsOrderByTextAsc(fragment);
   }
 
+
+  /***
+   *
+   * @param id
+   * @return
+   */
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Comment get(@PathVariable UUID id) {
     return commentRepository.findOrFail(id);
   }
 
+
+  /***
+   *
+   * @param id
+   * @param modifiedQuote
+   * @return
+   */
   @PutMapping(value = "/{id}/text",
       consumes = MediaType.TEXT_PLAIN_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
   public String put(@PathVariable UUID id, @RequestBody String modifiedQuote) {
@@ -79,6 +115,11 @@ public class CommentController {
     return comment.getText();
   }
 
+
+  /***
+   *
+   * @param id
+   */
   @DeleteMapping(value = "/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable UUID id) {
