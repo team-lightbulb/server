@@ -3,13 +3,19 @@ package edu.cnm.deepdive.lightbulb.model.entity;
 import edu.cnm.deepdive.lightbulb.view.FlatKeyword;
 import java.net.URI;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,6 +62,10 @@ public class Keyword implements FlatKeyword {
   @Column(length = 1024)
   private String name;
 
+  @ManyToMany(fetch = FetchType.LAZY, mappedBy = "keywords",
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @OrderBy("created DESC")
+  private List<Comment> comments = new LinkedList<>();
 
   @Override
   public UUID getId() {
@@ -89,6 +99,9 @@ public class Keyword implements FlatKeyword {
     this.name = name;
   }
 
+  public List<Comment> getComments() {
+    return comments;
+  }
 
   @Override
   public URI getHref() {
@@ -100,6 +113,7 @@ public class Keyword implements FlatKeyword {
     entityLinks.toString();
   }
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
     Keyword.entityLinks = entityLinks;

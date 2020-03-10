@@ -3,13 +3,25 @@ package edu.cnm.deepdive.lightbulb.model.entity;
 import edu.cnm.deepdive.lightbulb.view.FlatComment;
 import java.net.URI;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,10 +29,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Component
 @Entity
 @Table(
@@ -60,6 +73,26 @@ public class Comment implements FlatComment {
   @Column(length = 4096, nullable = false)
   private String text;
 
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  private User user;
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "reference_id", updatable = false)
+  private Comment reference;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "reference",
+      cascade = CascadeType.ALL, orphanRemoval = true)
+  @OrderBy("created ASC")
+  private List<Comment> responses = new LinkedList<>();
+
+  @ManyToMany(fetch = FetchType.LAZY,
+      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
+  @JoinTable(name = "comment_keyword",
+      joinColumns = @JoinColumn(name = "comment_id", nullable = false, updatable = false),
+      inverseJoinColumns = @JoinColumn(name = "keyword_id", nullable = false, updatable = false))
+  private Set<Keyword> keywords = new HashSet<>();
+
   @Override
   public UUID getId() {
     return id;
@@ -70,18 +103,13 @@ public class Comment implements FlatComment {
     return created;
   }
 
-  public void setCreated(@NonNull Date created) {
-    this.created = created;
-  }
+
 
   @NonNull
   public Date getUpdated() {
     return updated;
   }
 
-  public void setUpdated(@NonNull Date updated) {
-    this.updated = updated;
-  }
 
   @NonNull
   public String getName() {
@@ -102,6 +130,30 @@ public class Comment implements FlatComment {
     this.text = text;
   }
 
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public Comment getReference() {
+    return reference;
+  }
+
+  public void setReference(Comment reference) {
+    this.reference = reference;
+  }
+
+  public List<Comment> getResponses() {
+    return responses;
+  }
+
+  public Set<Keyword> getKeywords() {
+    return keywords;
+  }
+
   @Override
   public URI getHref() {
     return entityLinks.linkForItemResource(Comment.class, id).toUri();
@@ -112,6 +164,7 @@ public class Comment implements FlatComment {
     entityLinks.toString();
   }
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
     Comment.entityLinks = entityLinks;

@@ -1,16 +1,23 @@
 package edu.cnm.deepdive.lightbulb.model.entity;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.graalvm.compiler.lir.alloc.lsra.LinearScan;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -52,9 +59,21 @@ public class User {
   @Column(nullable = false)
   private Date updated;
 
-  @NonNull
-  @Column(length = 4096, nullable = false, unique = true)
-  private String text;
+  @Column(unique = true, nullable = false, updatable = false, length = 50)
+  private String oauthKey;
+
+  @Column(unique = true, nullable = false, length = 50)
+  private String displayName;
+
+  @Column(nullable = false)
+  private String email;
+
+  @Column(nullable = false)
+  private boolean active = true;
+
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+  @OrderBy("created DESC")
+  private List<Comment> comments = new LinkedList<>();
 
   @NonNull
   public Date getCreated() {
@@ -74,13 +93,41 @@ public class User {
     this.updated = updated;
   }
 
-  @NonNull
-  public String getText() {
-    return text;
+  public String getOauthKey() {
+    return oauthKey;
   }
 
-  public void setText(@NonNull String text) {
-    this.text = text;
+
+  public void setOauthKey(String oauthKey) {
+    this.oauthKey = oauthKey;
+  }
+
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
+  }
+
+  public List<Comment> getComments() {
+    return comments;
   }
 
   @PostConstruct
