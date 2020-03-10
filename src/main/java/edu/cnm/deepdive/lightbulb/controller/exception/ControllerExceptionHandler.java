@@ -1,4 +1,4 @@
-package io.github.lightbulb.controller.exception;
+package edu.cnm.deepdive.lightbulb.controller.exception;
 
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;

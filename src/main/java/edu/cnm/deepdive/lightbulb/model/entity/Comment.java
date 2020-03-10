@@ -1,6 +1,6 @@
-package io.github.lightbulb.model.entity;
+package edu.cnm.deepdive.lightbulb.model.entity;
 
-import io.github.lightbulb.view.FlatComment;
+import edu.cnm.deepdive.lightbulb.view.FlatComment;
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;

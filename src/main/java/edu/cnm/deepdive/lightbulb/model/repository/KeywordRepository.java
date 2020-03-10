@@ -1,6 +1,6 @@
-package io.github.lightbulb.model.repository;
+package edu.cnm.deepdive.lightbulb.model.repository;
 
-import io.github.lightbulb.model.entity.Keyword;
+import edu.cnm.deepdive.lightbulb.model.entity.Keyword;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 

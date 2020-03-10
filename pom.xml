@@ -9,7 +9,7 @@
     <version>2.2.4.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>io.github.lightbulb</groupId>
+  <groupId>edu.cnm.deepdive.lightbulb</groupId>
   <artifactId>lightbulb</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>lightbulb</name>

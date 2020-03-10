@@ -1,16 +1,15 @@
-package io.github.lightbulb.model.entity;
+package edu.cnm.deepdive.lightbulb.model.entity;
 
+import edu.cnm.deepdive.lightbulb.view.FlatKeyword;
+import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,13 +24,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(
-    name = "user_client",
     indexes = {
         @Index(columnList = "created")
     }
 )
-
-public class User {
+public class Keyword implements FlatKeyword {
 
   private static EntityLinks entityLinks;
 
@@ -39,7 +36,7 @@ public class User {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "user_id", columnDefinition = "CHAR(16) FOR BIT DATA",
+  @Column(name = "keyword_id", columnDefinition = "CHAR(16) FOR BIT DATA",
       nullable = false, updatable = false)
   private UUID id;
 
@@ -56,8 +53,14 @@ public class User {
   private Date updated;
 
   @NonNull
-  @Column(length = 4096, nullable = false, unique = true)
-  private String text;
+  @Column(length = 1024)
+  private String name;
+
+
+  @Override
+  public UUID getId() {
+    return id;
+  }
 
   @NonNull
   public Date getCreated() {
@@ -78,12 +81,18 @@ public class User {
   }
 
   @NonNull
-  public String getText() {
-    return text;
+  public String getName() {
+    return name;
   }
 
-  public void setText(@NonNull String text) {
-    this.text = text;
+  public void setName(@NonNull String name) {
+    this.name = name;
+  }
+
+
+  @Override
+  public URI getHref() {
+    return entityLinks.linkForItemResource(Comment.class, id).toUri();
   }
 
   @PostConstruct
@@ -93,6 +102,6 @@ public class User {
 
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
-    User.entityLinks = entityLinks;
+    Keyword.entityLinks = entityLinks;
   }
 }

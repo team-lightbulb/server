@@ -1,10 +1,10 @@
-package io.github.lightbulb.controller.rest;
+package edu.cnm.deepdive.lightbulb.controller.rest;
 
-import io.github.lightbulb.controller.exception.SearchTermTooShortException;
-import io.github.lightbulb.model.entity.Comment;
-import io.github.lightbulb.model.entity.Keyword;
-import io.github.lightbulb.model.repository.CommentRepository;
-import io.github.lightbulb.model.repository.KeywordRepository;
+import edu.cnm.deepdive.lightbulb.controller.exception.SearchTermTooShortException;
+import edu.cnm.deepdive.lightbulb.model.entity.Comment;
+import edu.cnm.deepdive.lightbulb.model.entity.Keyword;
+import edu.cnm.deepdive.lightbulb.model.repository.CommentRepository;
+import edu.cnm.deepdive.lightbulb.model.repository.KeywordRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;

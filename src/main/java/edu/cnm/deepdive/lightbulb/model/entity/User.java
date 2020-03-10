@@ -1,7 +1,5 @@
-package io.github.lightbulb.model.entity;
+package edu.cnm.deepdive.lightbulb.model.entity;
 
-import io.github.lightbulb.view.FlatKeyword;
-import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
 import javax.annotation.PostConstruct;
@@ -24,11 +22,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(
+    name = "user_client",
     indexes = {
         @Index(columnList = "created")
     }
 )
-public class Keyword implements FlatKeyword {
+
+public class User {
 
   private static EntityLinks entityLinks;
 
@@ -36,7 +36,7 @@ public class Keyword implements FlatKeyword {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "keyword_id", columnDefinition = "CHAR(16) FOR BIT DATA",
+  @Column(name = "user_id", columnDefinition = "CHAR(16) FOR BIT DATA",
       nullable = false, updatable = false)
   private UUID id;
 
@@ -53,14 +53,8 @@ public class Keyword implements FlatKeyword {
   private Date updated;
 
   @NonNull
-  @Column(length = 1024)
-  private String name;
-
-
-  @Override
-  public UUID getId() {
-    return id;
-  }
+  @Column(length = 4096, nullable = false, unique = true)
+  private String text;
 
   @NonNull
   public Date getCreated() {
@@ -81,18 +75,12 @@ public class Keyword implements FlatKeyword {
   }
 
   @NonNull
-  public String getName() {
-    return name;
+  public String getText() {
+    return text;
   }
 
-  public void setName(@NonNull String name) {
-    this.name = name;
-  }
-
-
-  @Override
-  public URI getHref() {
-    return entityLinks.linkForItemResource(Comment.class, id).toUri();
+  public void setText(@NonNull String text) {
+    this.text = text;
   }
 
   @PostConstruct
@@ -102,6 +90,6 @@ public class Keyword implements FlatKeyword {
 
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
-    Keyword.entityLinks = entityLinks;
+    User.entityLinks = entityLinks;
   }
 }

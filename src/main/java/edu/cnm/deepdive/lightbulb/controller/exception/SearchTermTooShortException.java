@@ -1,4 +1,4 @@
-package io.github.lightbulb.controller.exception;
+package edu.cnm.deepdive.lightbulb.controller.exception;
 
 public class SearchTermTooShortException extends IllegalArgumentException {
 

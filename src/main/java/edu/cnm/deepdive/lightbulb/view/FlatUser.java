@@ -1,11 +1,11 @@
-package io.github.lightbulb.view;
+package edu.cnm.deepdive.lightbulb.view;
 
 import java.net.URI;
 import java.util.Date;
 import java.util.UUID;
 import org.springframework.lang.NonNull;
 
-public interface FlatComment {
+public interface FlatUser {
 
   @NonNull
   UUID getId();
@@ -21,7 +21,4 @@ public interface FlatComment {
 
   @NonNull
   URI getHref();
-
 }
-
-
