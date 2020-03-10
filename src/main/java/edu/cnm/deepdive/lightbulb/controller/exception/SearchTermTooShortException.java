@@ -2,13 +2,13 @@ package edu.cnm.deepdive.lightbulb.controller.exception;
 
 
 /***
- *
+ * Throws illegal argument exception.
  */
 public class SearchTermTooShortException extends IllegalArgumentException {
 
 
   /***
-   *
+   * Throws illegal argument exception.
    */
   public SearchTermTooShortException() {
     super();
@@ -16,8 +16,7 @@ public class SearchTermTooShortException extends IllegalArgumentException {
 
 
   /***
-   *
-   * @param s
+   * Throws illegal argument exception.
    */
   public SearchTermTooShortException(String s) {
     super(s);
@@ -25,9 +24,7 @@ public class SearchTermTooShortException extends IllegalArgumentException {
 
 
   /***
-   *
-   * @param message
-   * @param cause
+   * Throws illegal argument exception.
    */
   public SearchTermTooShortException(String message, Throwable cause) {
     super(message, cause);
@@ -35,8 +32,7 @@ public class SearchTermTooShortException extends IllegalArgumentException {
 
 
   /***
-   *
-   * @param cause
+   * Throws illegal argument exception.
    */
   public SearchTermTooShortException(Throwable cause) {
     super(cause);

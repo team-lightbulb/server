@@ -27,6 +27,9 @@ import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+/***
+ * This class implements the flatkeyword.
+ */
 @Component
 @Entity
 @Table(

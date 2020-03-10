@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 import org.springframework.lang.NonNull;
 
+
 public interface FlatKeyword {
 
   @NonNull

@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/***
+ * This class controls the keyword repository.
+ */
 @RestController
 @RequestMapping("/keywords")
 @ExposesResourceFor(Keyword.class)
@@ -30,7 +34,7 @@ public class KeywordController {
   private final CommentRepository commentRepository;
 
   /***
-   *
+   * This method links keyword repository to comments repository.
    * @param keywordRepository
    * @param commentRepository
    */
@@ -43,7 +47,7 @@ public class KeywordController {
 
 
   /***
-   *
+   * This method returns the keyword repository.
    * @param keyword
    * @return
    */
@@ -56,7 +60,7 @@ public class KeywordController {
 
 
   /***
-   *
+   * This method returns keyword repository by descending order.
    * @return
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -66,7 +70,7 @@ public class KeywordController {
 
 
   /***
-   *
+   * This method throws an exception and also returns keyword repository in ascending order.
    * @param fragment
    * @return
    */
@@ -80,7 +84,7 @@ public class KeywordController {
 
 
   /***
-   *
+   * This method returns keyword repository.
    * @param id
    * @return
    */
@@ -91,7 +95,7 @@ public class KeywordController {
 
 
   /***
-   *
+   * This method deletes the keyword repository.
    * @param id
    */
   @DeleteMapping(value = "/{id}")

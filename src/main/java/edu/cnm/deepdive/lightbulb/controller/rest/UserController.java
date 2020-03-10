@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
+/***
+ * This class controls the user repository.
+ */
 @RestController
 @RequestMapping("/users")
 @ExposesResourceFor(User.class)
@@ -28,7 +31,7 @@ public class UserController {
   private final UserRepository userRepository;
 
   /***
-   *
+   * This method is assigned to the user repository.
    * @param userRepository
    */
   @Autowired
@@ -37,7 +40,7 @@ public class UserController {
   }
 
   /***
-   *
+   * This method requests the user repository.
    * @param user
    * @return
    */
@@ -49,7 +52,7 @@ public class UserController {
   }
 
   /***
-   *
+   * This method arranges the user repository in descending order.
    * @return
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -58,7 +61,7 @@ public class UserController {
   }
 
   /***
-   *
+   * This method throws an exception and also returns the user repository.
    * @param fragment
    * @return
    */
@@ -71,7 +74,7 @@ public class UserController {
   }
 
   /***
-   *
+   * This method returns the user repository.
    * @param id
    * @return
    */
@@ -81,7 +84,7 @@ public class UserController {
   }
 
   /***
-   *
+   * This method method deletes the user repository.
    * @param id
    */
   @DeleteMapping(value = "/{id}")

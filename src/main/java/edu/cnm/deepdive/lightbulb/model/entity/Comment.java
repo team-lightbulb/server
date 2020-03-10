@@ -37,6 +37,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
+
+/**
+ * This class implements the flatcomment.
+ */
 @Component
 @Entity
 @Table(

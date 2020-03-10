@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-/**
- * The controller exception handler throws an exception when there is an invalid request.
- */
 
+/***
+ * This method sends a bad request response if a exception is caught.
+ */
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
 
   /***
-   * Throws exception if search term is too short.
+   * This method sends a bad request response if a exception is caught.
    */
   @ExceptionHandler(SearchTermTooShortException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Search term too short")
@@ -23,14 +23,14 @@ public class ControllerExceptionHandler {
 
 
   /***
-   * Throws exception if resource not found.
+   * Sends exception if resource not found if and exception is caught.
    */
   @ExceptionHandler(NoSuchElementException.class)
   @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
   public void notFound() {}
 
   /***
-   * Throws exception if invalid request content or parameters.
+   * This method sends a bad request response if a exception is caught.
    */
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid request content or parameters")

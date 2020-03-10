@@ -28,6 +28,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @SuppressWarnings("JpaDataSourceORMInspection")
+
+/***
+ * This implements the flatuser.
+ */
 @Component
 @Entity
 @Table(
@@ -125,6 +129,10 @@ public class User implements FlatUser {
     this.email = email;
   }
 
+  /**
+   * This method determines if a user status is active or not.
+   * @return
+   */
   public boolean isActive() {
     return active;
   }
