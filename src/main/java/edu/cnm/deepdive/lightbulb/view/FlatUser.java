@@ -17,7 +17,7 @@ public interface FlatUser {
   Date getUpdated();
 
   @NonNull
-  String getText();
+  String getDisplayName();
 
   @NonNull
   URI getHref();

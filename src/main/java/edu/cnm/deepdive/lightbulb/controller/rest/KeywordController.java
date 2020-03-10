@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/keywords")
-@ExposesResourceFor(Comment.class)
+@ExposesResourceFor(Keyword.class)
 public class KeywordController {
 
   private final KeywordRepository keywordRepository;

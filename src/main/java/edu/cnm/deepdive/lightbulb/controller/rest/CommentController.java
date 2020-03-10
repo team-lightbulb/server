@@ -2,8 +2,10 @@ package edu.cnm.deepdive.lightbulb.controller.rest;
 
 import edu.cnm.deepdive.lightbulb.controller.exception.SearchTermTooShortException;
 import edu.cnm.deepdive.lightbulb.model.entity.Comment;
+import edu.cnm.deepdive.lightbulb.model.entity.User;
 import edu.cnm.deepdive.lightbulb.model.repository.CommentRepository;
 import edu.cnm.deepdive.lightbulb.model.repository.KeywordRepository;
+import edu.cnm.deepdive.lightbulb.model.repository.UserRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -28,17 +30,24 @@ public class CommentController {
 
   private final CommentRepository commentRepository;
   private final KeywordRepository keywordRepository;
+  private final UserRepository userRepository;
 
   @Autowired
   public CommentController(CommentRepository commentRepository,
-      KeywordRepository keywordRepository) {
+      KeywordRepository keywordRepository,
+      UserRepository userRepository) {
     this.commentRepository = commentRepository;
     this.keywordRepository = keywordRepository;
+    this.userRepository = userRepository;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Comment> post(@RequestBody Comment comment) {
+    User user = userRepository.findOrFail(comment.getUser().getId());
+    Comment reference = (comment.getReference() != null) ? commentRepository.findOrFail(comment.getReference().getId()) : null;
+    comment.setReference(reference);
+    comment.setUser(user);
     commentRepository.save(comment);
     return ResponseEntity.created(comment.getHref()).body(comment);
   }

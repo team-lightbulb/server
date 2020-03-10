@@ -1,5 +1,7 @@
 package edu.cnm.deepdive.lightbulb.model.entity;
 
+import edu.cnm.deepdive.lightbulb.view.FlatUser;
+import java.net.URI;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +19,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.graalvm.compiler.lir.alloc.lsra.LinearScan;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -26,6 +27,7 @@ import org.springframework.hateoas.server.EntityLinks;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Component
 @Entity
 @Table(
@@ -35,7 +37,7 @@ import org.springframework.stereotype.Component;
     }
 )
 
-public class User {
+public class User implements FlatUser {
 
   private static EntityLinks entityLinks;
 
@@ -74,6 +76,11 @@ public class User {
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
   @OrderBy("created DESC")
   private List<Comment> comments = new LinkedList<>();
+
+  @NonNull
+  public UUID getId() {
+    return id;
+  }
 
   @NonNull
   public Date getCreated() {
@@ -130,11 +137,16 @@ public class User {
     return comments;
   }
 
+  public URI getHref() {
+    return entityLinks.linkForItemResource(User.class, id).toUri();
+  }
+
   @PostConstruct
   private void init() {
     entityLinks.toString();
   }
 
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Autowired
   private void setEntityLinks(EntityLinks entityLinks) {
     User.entityLinks = entityLinks;
