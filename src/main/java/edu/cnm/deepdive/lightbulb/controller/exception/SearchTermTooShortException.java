@@ -1,5 +1,9 @@
 package edu.cnm.deepdive.lightbulb.controller.exception;
 
+/**
+ *  This method throws an IllegalAr
+ */
+
 public class SearchTermTooShortException extends IllegalArgumentException {
 
   public SearchTermTooShortException() {

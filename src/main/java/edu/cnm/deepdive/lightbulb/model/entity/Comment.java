@@ -110,13 +110,10 @@ public class Comment implements FlatComment {
     return created;
   }
 
-
-
   @NonNull
   public Date getUpdated() {
     return updated;
   }
-
 
   @NonNull
   public String getName() {

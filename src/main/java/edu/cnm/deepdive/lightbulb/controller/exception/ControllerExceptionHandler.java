@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * The controller
+ * The controller exception handler throws an exception when there is an invalid request.
  */
-
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
