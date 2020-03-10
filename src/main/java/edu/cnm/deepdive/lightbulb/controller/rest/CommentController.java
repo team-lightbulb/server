@@ -23,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/***
+ * This class contains the comment repository.
+ */
 @RestController
 @RequestMapping("/comments")
 @ExposesResourceFor(Comment.class)
@@ -34,7 +38,7 @@ public class CommentController {
 
 
   /***
-   *
+   * This method will link to the other repositories.
    * @param commentRepository
    * @param keywordRepository
    * @param userRepository
@@ -50,7 +54,7 @@ public class CommentController {
 
 
   /***
-   *
+   * This method references the comments to the user.
    * @param comment
    * @return
    */
@@ -67,7 +71,7 @@ public class CommentController {
 
 
   /***
-   *
+   * This method arranges comments in descending order.
    * @return
    */
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,7 +80,7 @@ public class CommentController {
   }
 
   /***
-   *
+   * Throws and exception if there is a bad request or invalid search.
    * @param fragment
    * @return
    */
@@ -90,7 +94,7 @@ public class CommentController {
 
 
   /***
-   *
+   * This method returns comment repository.
    * @param id
    * @return
    */
@@ -101,7 +105,7 @@ public class CommentController {
 
 
   /***
-   *
+   * This method returns modified text.
    * @param id
    * @param modifiedComment
    * @return
@@ -117,7 +121,7 @@ public class CommentController {
 
 
   /***
-   *
+   * This method deletes comments repositories.
    * @param id
    */
   @DeleteMapping(value = "/{id}")
