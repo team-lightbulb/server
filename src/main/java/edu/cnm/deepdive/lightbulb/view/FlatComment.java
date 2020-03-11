@@ -24,6 +24,9 @@ public interface FlatComment {
 
   @NonNull
   URI getHref();
+
+  @NonNull
+  String getName();
 }
 
 

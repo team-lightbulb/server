@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.lightbulb.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.cnm.deepdive.lightbulb.view.FlatUser;
 import java.net.URI;
 import java.util.Date;
@@ -66,6 +67,7 @@ public class User implements FlatUser {
   private Date updated;
 
   @Column(unique = true, nullable = false, updatable = false, length = 50)
+  @JsonIgnore
   private String oauthKey;
 
   @Column(unique = true, nullable = false, length = 50)

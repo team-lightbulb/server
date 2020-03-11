@@ -21,4 +21,7 @@ public interface FlatKeyword {
 
   @NonNull
   URI getHref();
+
+  @NonNull
+  String getName();
 }

@@ -20,8 +20,11 @@ public interface FlatUser {
   @NonNull
   Date getUpdated();
 
-  @NonNull
   String getDisplayName();
+
+  String getEmail();
+
+  boolean isActive();
 
   @NonNull
   URI getHref();
