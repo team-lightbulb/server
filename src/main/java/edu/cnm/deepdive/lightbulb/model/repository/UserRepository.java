@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+  User findFirstByOauthKey(String key);
+
   Iterable<User> getAllByOrderByCreatedDesc();
 
   Iterable<User> getAllByDisplayNameContainsOrderByDisplayName(String fragment);

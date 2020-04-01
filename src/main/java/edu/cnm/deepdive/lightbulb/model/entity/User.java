@@ -1,6 +1,9 @@
 package edu.cnm.deepdive.lightbulb.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import edu.cnm.deepdive.lightbulb.view.FlatUser;
 import java.net.URI;
 import java.util.Date;
@@ -41,7 +44,6 @@ import org.springframework.stereotype.Component;
         @Index(columnList = "created")
     }
 )
-
 public class User implements FlatUser {
 
   private static EntityLinks entityLinks;
@@ -67,7 +69,8 @@ public class User implements FlatUser {
   private Date updated;
 
   @Column(unique = true, nullable = false, updatable = false, length = 50)
-  @JsonIgnore
+//  @JsonIgnore
+  @JsonProperty(access = Access.WRITE_ONLY)
   private String oauthKey;
 
   @Column(unique = true, nullable = false, length = 50)
@@ -106,6 +109,7 @@ public class User implements FlatUser {
     this.updated = updated;
   }
 
+  @JsonIgnore
   public String getOauthKey() {
     return oauthKey;
   }

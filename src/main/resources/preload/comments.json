@@ -1,0 +1,41 @@
+[
+  {
+    "name": "books",
+    "text": "the book is on the table",
+    "user": {
+      "oauthKey": "Todd"
+    },
+    "responses": [
+      {
+        "name": "books",
+        "text": "Will play lots of soccer",
+        "user": {
+          "oauthKey": "gym"
+        },
+        "responses": [
+          {
+            "name": "books",
+            "text": "I saw the book there",
+            "user": {
+              "oauthKey": "Todd"
+            }
+          }
+        ]
+      },
+      {
+        "name": "the revenge of the books",
+        "text": "Will soon be coming to class",
+        "user": {
+          "oauthKey": "myclass"
+        }
+      }
+    ]
+  },
+  {
+    "name": "cars",
+    "text": "I just want a nice cheap car so i can save my money",
+    "user": {
+      "oauthKey": "gym"
+    }
+  }
+]
