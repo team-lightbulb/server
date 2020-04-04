@@ -73,7 +73,8 @@ public class Preloader implements CommandLineRunner {
   }
 
   private void resolveReferences(Comment comment) {
-    comment.setUser(userRepository.findFirstByOauthKey(comment.getUser().getOauthKey()));
+    //noinspection OptionalGetWithoutIsPresent
+    comment.setUser(userRepository.findFirstByOauthKey(comment.getUser().getOauthKey()).get());
     List<Keyword> keywords = new LinkedList<>();
     for (Keyword keyword : comment.getKeywords()) {
       keyword = keywordRepository.findFirstByName(keyword.getName()).orElse(keyword);
