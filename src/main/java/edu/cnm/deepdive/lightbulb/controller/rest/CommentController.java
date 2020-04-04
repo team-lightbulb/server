@@ -16,6 +16,7 @@ import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,8 +65,8 @@ public class CommentController {
    */
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Comment> post(@RequestBody Comment comment) {
-    User user = userRepository.findOrFail(comment.getUser().getId());
+  public ResponseEntity<Comment> post(@RequestBody Comment comment, Authentication auth) {
+    User user = (User) auth.getPrincipal();
     Comment reference = (comment.getReference() != null) ? commentRepository.findOrFail(comment.getReference().getId()) : null;
     comment.setReference(reference);
     comment.setUser(user);
