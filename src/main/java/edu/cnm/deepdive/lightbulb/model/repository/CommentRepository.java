@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.lightbulb.model.repository;
 
 import edu.cnm.deepdive.lightbulb.model.entity.Comment;
+import edu.cnm.deepdive.lightbulb.model.entity.Keyword;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,9 +11,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CommentRepository extends JpaRepository<Comment, UUID> {
 
+  Iterable<Comment> getAllByKeywordsContaining(Keyword keyword);
+
   Iterable<Comment> getAllByOrderByCreatedDesc();
 
-  Iterable<Comment> getAllByTextContainsOrderByTextAsc(String fragment);
+  Iterable<Comment> getAllByTextContainsOrNameContainsOrderByNameAsc(String textFragment, String nameFragment);
 
   default Comment findOrFail(UUID id) {
     return findById(id).get();

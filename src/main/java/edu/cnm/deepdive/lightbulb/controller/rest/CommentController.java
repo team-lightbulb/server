@@ -2,10 +2,14 @@ package edu.cnm.deepdive.lightbulb.controller.rest;
 
 import edu.cnm.deepdive.lightbulb.controller.exception.SearchTermTooShortException;
 import edu.cnm.deepdive.lightbulb.model.entity.Comment;
+import edu.cnm.deepdive.lightbulb.model.entity.Keyword;
 import edu.cnm.deepdive.lightbulb.model.entity.User;
 import edu.cnm.deepdive.lightbulb.model.repository.CommentRepository;
 import edu.cnm.deepdive.lightbulb.model.repository.KeywordRepository;
 import edu.cnm.deepdive.lightbulb.model.repository.UserRepository;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -65,6 +69,14 @@ public class CommentController {
     Comment reference = (comment.getReference() != null) ? commentRepository.findOrFail(comment.getReference().getId()) : null;
     comment.setReference(reference);
     comment.setUser(user);
+    if (comment.getKeywords() != null) {
+      List<Keyword> keywords = new LinkedList<>();
+      for (Keyword keyword : comment.getKeywords()) {
+        keywords.add(keywordRepository.findById(keyword.getId()).orElse(keyword));
+      }
+      comment.getKeywords().clear();
+      comment.getKeywords().addAll(keywords);
+    }
     commentRepository.save(comment);
     return ResponseEntity.created(comment.getHref()).body(comment);
   }
@@ -84,12 +96,12 @@ public class CommentController {
    * @param fragment
    * @return
    */
-  @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/search", params = "q", produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Comment> search(@RequestParam("q") String fragment) {
     if (fragment.length() < 3) {
       throw new SearchTermTooShortException();
     }
-    return commentRepository.getAllByTextContainsOrderByTextAsc(fragment);
+    return commentRepository.getAllByTextContainsOrNameContainsOrderByNameAsc(fragment, fragment);
   }
 
 
@@ -101,6 +113,14 @@ public class CommentController {
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Comment get(@PathVariable UUID id) {
     return commentRepository.findOrFail(id);
+  }
+
+  @GetMapping(value = "/search", params = "keyword", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Comment> searchByKeyword(@RequestParam String keyword) {
+    //noinspection unchecked
+    return keywordRepository.findFirstByName(keyword)
+        .map(commentRepository::getAllByKeywordsContaining)
+        .orElse(Collections.EMPTY_LIST);
   }
 
 
