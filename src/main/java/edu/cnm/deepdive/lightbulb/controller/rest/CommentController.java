@@ -67,7 +67,8 @@ public class CommentController {
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Comment> post(@RequestBody Comment comment, Authentication auth) {
     User user = (User) auth.getPrincipal();
-    Comment reference = (comment.getReference() != null) ? commentRepository.findOrFail(comment.getReference().getId()) : null;
+    Comment reference = (comment.getReference() != null) ? commentRepository
+        .findOrFail(comment.getReference().getId()) : null;
     comment.setReference(reference);
     comment.setUser(user);
     if (comment.getKeywords() != null) {
@@ -102,7 +103,12 @@ public class CommentController {
     if (fragment.length() < 3) {
       throw new SearchTermTooShortException();
     }
-    return commentRepository.getAllByTextContainsOrNameContainsOrderByNameAsc(fragment, fragment);
+    return keywordRepository.findFirstByName(fragment)
+        .map((keyword) ->
+            commentRepository.getAllByKeywordsContainingOrTextContainsOrNameContainsOrderByNameAsc(
+                keyword, fragment, fragment))
+        .orElse(
+            commentRepository.getAllByTextContainsOrNameContainsOrderByNameAsc(fragment, fragment));
   }
 
 
@@ -115,15 +121,6 @@ public class CommentController {
   public Comment get(@PathVariable UUID id) {
     return commentRepository.findOrFail(id);
   }
-
-  @GetMapping(value = "/search", params = "keyword", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Iterable<Comment> searchByKeyword(@RequestParam String keyword) {
-    //noinspection unchecked
-    return keywordRepository.findFirstByName(keyword)
-        .map(commentRepository::getAllByKeywordsContaining)
-        .orElse(Collections.EMPTY_LIST);
-  }
-
 
   /***
    * This method returns modified text.

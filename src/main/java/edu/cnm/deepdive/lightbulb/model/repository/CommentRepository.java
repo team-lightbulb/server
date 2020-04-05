@@ -11,11 +11,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CommentRepository extends JpaRepository<Comment, UUID> {
 
-  Iterable<Comment> getAllByKeywordsContaining(Keyword keyword);
 
   Iterable<Comment> getAllByOrderByCreatedDesc();
 
-  Iterable<Comment> getAllByTextContainsOrNameContainsOrderByNameAsc(String textFragment, String nameFragment);
+  Iterable<Comment> getAllByKeywordsContainingOrTextContainsOrNameContainsOrderByNameAsc(
+      Keyword keyword, String textFragment, String nameFragment);
+
+  Iterable<Comment> getAllByTextContainsOrNameContainsOrderByNameAsc(
+      String textFragment, String nameFragment);
 
   default Comment findOrFail(UUID id) {
     return findById(id).get();
